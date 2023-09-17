@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Mediscan_Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Mediscan_ModelStoreContainer">
+    <EntitySet Name="Ùser" EntityType="Mediscan_Model.Store.Ùser" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="Mediscan_Model.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Appointments" EntityType="Mediscan_Model.Store.Appointments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Centres" EntityType="Mediscan_Model.Store.Centres" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="RoleÙser" Association="Mediscan_Model.Store.RoleÙser">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Ùser" EntitySet="Ùser" />
+    </AssociationSet>
+    <AssociationSet Name="ÙserAppointment" Association="Mediscan_Model.Store.ÙserAppointment">
+      <End Role="Ùser" EntitySet="Ùser" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="CentreAppointment" Association="Mediscan_Model.Store.CentreAppointment">
+      <End Role="Centre" EntitySet="Centres" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Ùser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appointments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Service" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ÙserId" Type="int" Nullable="false" />
+    <Property Name="CentreId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Centres">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="RoleÙser">
+    <End Role="Role" Type="Mediscan_Model.Store.Roles" Multiplicity="1" />
+    <End Role="Ùser" Type="Mediscan_Model.Store.Ùser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ùser">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ÙserAppointment">
+    <End Role="Ùser" Type="Mediscan_Model.Store.Ùser" Multiplicity="1" />
+    <End Role="Appointment" Type="Mediscan_Model.Store.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ùser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="ÙserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CentreAppointment">
+    <End Role="Centre" Type="Mediscan_Model.Store.Centres" Multiplicity="1" />
+    <End Role="Appointment" Type="Mediscan_Model.Store.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Centre">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="CentreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Mediscan_Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Mediscan_ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ùser" EntityType="Mediscan_Model.Ùser" />
+          <EntitySet Name="Roles" EntityType="Mediscan_Model.Role" />
+          <AssociationSet Name="RoleÙser" Association="Mediscan_Model.RoleÙser">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Ùser" EntitySet="Ùser" />
+          </AssociationSet>
+          <EntitySet Name="Appointments" EntityType="Mediscan_Model.Appointment" />
+          <AssociationSet Name="ÙserAppointment" Association="Mediscan_Model.ÙserAppointment">
+            <End Role="Ùser" EntitySet="Ùser" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <EntitySet Name="Centres" EntityType="Mediscan_Model.Centre" />
+          <AssociationSet Name="CentreAppointment" Association="Mediscan_Model.CentreAppointment">
+            <End Role="Centre" EntitySet="Centres" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Ùser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Mediscan_Model.RoleÙser" FromRole="Ùser" ToRole="Role" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Appointments" Relationship="Mediscan_Model.ÙserAppointment" FromRole="Ùser" ToRole="Appointment" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Ùser" Relationship="Mediscan_Model.RoleÙser" FromRole="Role" ToRole="Ùser" />
+        </EntityType>
+        <Association Name="RoleÙser">
+          <End Type="Mediscan_Model.Role" Role="Role" Multiplicity="1" />
+          <End Type="Mediscan_Model.Ùser" Role="Ùser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ùser">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <Property Name="Time" Type="String" Nullable="false" />
+          <Property Name="Service" Type="String" Nullable="false" />
+          <NavigationProperty Name="Ùser" Relationship="Mediscan_Model.ÙserAppointment" FromRole="Appointment" ToRole="Ùser" />
+          <Property Name="ÙserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Centre" Relationship="Mediscan_Model.CentreAppointment" FromRole="Appointment" ToRole="Centre" />
+          <Property Name="CentreId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ÙserAppointment">
+          <End Type="Mediscan_Model.Ùser" Role="Ùser" Multiplicity="1" />
+          <End Type="Mediscan_Model.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ùser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ÙserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Centre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Location" Type="String" Nullable="false" />
+          <NavigationProperty Name="Appointments" Relationship="Mediscan_Model.CentreAppointment" FromRole="Centre" ToRole="Appointment" />
+        </EntityType>
+        <Association Name="CentreAppointment">
+          <End Type="Mediscan_Model.Centre" Role="Centre" Multiplicity="1" />
+          <End Type="Mediscan_Model.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Centre">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="CentreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Mediscan_ModelStoreContainer" CdmEntityContainer="Mediscan_ModelContainer">
+    <EntitySetMapping Name="Ùser">
+      <EntityTypeMapping TypeName="IsTypeOf(Mediscan_Model.Ùser)">
+        <MappingFragment StoreEntitySet="Ùser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(Mediscan_Model.Role)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="IsTypeOf(Mediscan_Model.Appointment)">
+        <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Service" ColumnName="Service" />
+          <ScalarProperty Name="ÙserId" ColumnName="ÙserId" />
+          <ScalarProperty Name="CentreId" ColumnName="CentreId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Centres">
+      <EntityTypeMapping TypeName="IsTypeOf(Mediscan_Model.Centre)">
+        <MappingFragment StoreEntitySet="Centres">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
